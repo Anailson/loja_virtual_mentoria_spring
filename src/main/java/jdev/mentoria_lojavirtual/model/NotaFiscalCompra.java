@@ -34,11 +34,13 @@ public class NotaFiscalCompra  implements Serializable {
     private Date dataCompra;
 
 
+    /*Muitos para 1 */
     @ManyToOne(targetEntity =  Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
 
 
+    /*Muitos para 1 */
     @ManyToOne
     @JoinColumn(name = "conta_pagar_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
     private ContaPagar contaPagar;
