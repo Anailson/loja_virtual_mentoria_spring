@@ -20,11 +20,19 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
     private Long id;
+    @Column(nullable = false)
     private String login;
+    @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataAtualSenha; //informar ao usuario periodo da senha
+
+
+    @ManyToOne(targetEntity =  Pessoa.class)
+    @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+    private Pessoa pessoa;
 
     @OneToMany(fetch = FetchType.LAZY)//FetchType.LAZY ->Carrega do Banco de dados apenas qd for necessário
     @JoinTable(name = "usuarios_acesso", uniqueConstraints =
@@ -35,6 +43,13 @@ public class Usuario implements UserDetails {
     private List<Acesso> acessos;
 
 
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
 
     //Autoridades -> são acessos, ou seja ROLE_ADM, ROLE_SECRETARIA, ROLE_FINANCEIRO
     @Override

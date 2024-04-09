@@ -18,8 +18,14 @@ public abstract class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_pessoa")
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String telefone;
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY) //1 endereço para muitas pessoa
     private List<Endereco> enderecos = new ArrayList<Endereco>();

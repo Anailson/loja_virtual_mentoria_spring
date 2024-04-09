@@ -22,17 +22,21 @@ public class ContaReceber implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
     private Long id;
 
+    @Column(nullable = false)//o campo torna ser obrigatório
     private String descricao;
 
+    @Column(nullable = false)//o campo torna ser obrigatório
     @Enumerated(EnumType.STRING)
     private StatusContaReceber status;
 
+    @Column(nullable = false)//o campo torna ser obrigatório
     @Temporal(TemporalType.DATE)
     private Date dtVencimento;
 
     @Temporal(TemporalType.DATE)
     private Date dtPagamento;
 
+    @Column(nullable = false)//o campo torna ser obrigatório
     private BigDecimal valorTotal;
 
     private BigDecimal valorDesconto;
