@@ -1,4 +1,4 @@
-package jdev.mentoria_lojavirtual.enums;
+package jdev.mentoria.lojavirtual.enums;
 
 public enum TipoEndereco {
 

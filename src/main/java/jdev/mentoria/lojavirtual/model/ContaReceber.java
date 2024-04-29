@@ -1,8 +1,8 @@
-package jdev.mentoria_lojavirtual.model;
+package jdev.mentoria.lojavirtual.model;
 
 
 
-import jdev.mentoria_lojavirtual.enums.StatusContaReceber;
+import jdev.mentoria.lojavirtual.enums.StatusContaReceber;
 
 import javax.persistence.*;
 import java.io.Serializable;

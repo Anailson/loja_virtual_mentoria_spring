@@ -1,4 +1,4 @@
-package jdev.mentoria_lojavirtual.model;
+package jdev.mentoria.lojavirtual.model;
 
 
 import javax.persistence.Column;

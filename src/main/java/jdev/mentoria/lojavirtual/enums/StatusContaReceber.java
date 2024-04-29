@@ -1,16 +1,15 @@
-package jdev.mentoria_lojavirtual.enums;
+package jdev.mentoria.lojavirtual.enums;
 
-public enum StatusContaPagar {
+public enum StatusContaReceber {
 
     COBRANCA("Pagar"),
     VENCIDA("Vencida"),
     ABERTA("Aberta"),
-    QUITADA("Quitada"),
-    NEGOCIADA("Renegociada");
+    QUITADA("Quitada");
 
     private String descricao;
 
-    private StatusContaPagar(String descricao){
+    private StatusContaReceber(String descricao){
         this.descricao = descricao;
     }
 
