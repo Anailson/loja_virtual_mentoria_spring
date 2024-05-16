@@ -1,5 +1,7 @@
 package jdev.mentoria.lojavirtual.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "acesso")
 @SequenceGenerator(name = "seq_acesso)", sequenceName = "seq_acesso", allocationSize = 1, initialValue = 1)
+@JsonIgnoreProperties(ignoreUnknown = true) // Adicionando a anotação para ignorar propriedades desconhecidas
 public class Acesso implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
@@ -19,6 +22,7 @@ public class Acesso implements GrantedAuthority {
 
     @Column(nullable = false)//o campo torna ser obrigatório
     private String descricao;//Acesso ex: ROLE_ADMIN ou ROlE_SECRETARIO
+
 
     @Override
     public String getAuthority() {
