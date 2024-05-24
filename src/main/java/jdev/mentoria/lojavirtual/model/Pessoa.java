@@ -27,11 +27,25 @@ public abstract class Pessoa implements Serializable {
 
     @Column(nullable = false)
     private String telefone;
+
+    //teste versionamento
+    @Column
+    private String tipoPessoa;
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY) //1 endereço para muitas pessoa
     private List<Endereco> enderecos = new ArrayList<Endereco>();
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
     }
 
     public List<Endereco> getEnderecos() {
