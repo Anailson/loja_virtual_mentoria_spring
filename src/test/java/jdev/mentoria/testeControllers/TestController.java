@@ -48,7 +48,7 @@ public class TestController {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Acesso acesso = new Acesso();
-        acesso.setDescricao("ROLE_COMPRADOR");
+        acesso.setDescricao("ROLE_ADM");
 
         ResultActions retornoAPi = mockMvc
                 .perform(MockMvcRequestBuilders.post("/salvarAcesso")

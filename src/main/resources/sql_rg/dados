@@ -1,0 +1,11 @@
+#salvando acesso
+INSERT INTO public.pessoa_fisica(
+            id, email, nome, telefone, cpf, data_nascimento)
+    VALUES (1, 'anailson@gmail.com', 'anailson', '65461112324', '465465464', '1984-05-05');
+
+
+    NSERT INTO public.usuario(
+                id, data_atual_senha, login, senha, pessoa_id)
+        VALUES ('1', '2024-05-05', 'anailson', '$2a$10$ibmr.eMhICL0QQNE9Ykp5e5Dk7vzSP5mKec0lNEVv8Oraw3.r.Gji', 1);
+
+Insert -> para realizar testes do token

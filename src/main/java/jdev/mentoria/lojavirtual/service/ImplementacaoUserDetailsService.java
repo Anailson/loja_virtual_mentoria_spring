@@ -21,10 +21,10 @@ public class ImplementacaoUserDetailsService  implements UserDetailsService {
 
         Usuario usuario = usuarioRepository.findUserByLogin(username);//RECEBE O LOGIN PARA CONSULTAA
 
-        if(usuario == null){
+        if(usuario == null){ //usuario não existir no BD
             throw  new UsernameNotFoundException("Usuário não foi encontrado");
         }
-
-        return new User(usuario.getLogin(), usuario.getPassword(), usuario.getAuthorities());
+       //caso tenha usuário
+        return new User(usuario.getLogin(), usuario.getPassword(), usuario.getAuthorities()); //getAuthorities são as permissões
     }
 }

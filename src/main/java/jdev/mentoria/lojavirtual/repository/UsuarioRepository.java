@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
+public interface UsuarioRepository extends CrudRepository<Usuario, Long> {  //ou JpaRepository
 
     //METODO PARA CONSULTAR USUÁRIO NO BANCO
     @Query(value = "select u from Usuario u where u.login = ?1")

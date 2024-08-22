@@ -1,7 +1,6 @@
 package jdev.mentoria.lojavirtual.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
