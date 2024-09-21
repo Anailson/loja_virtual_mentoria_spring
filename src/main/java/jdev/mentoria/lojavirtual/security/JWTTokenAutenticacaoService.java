@@ -1,8 +1,10 @@
 package jdev.mentoria.lojavirtual.security;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import jdev.mentoria.lojavirtual.ApplicationContextLoad;
 import jdev.mentoria.lojavirtual.model.Usuario;
 import jdev.mentoria.lojavirtual.repository.UsuarioRepository;
@@ -10,8 +12,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Cache;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -21,7 +25,7 @@ import java.util.Date;
 public class JWTTokenAutenticacaoService {
 
     //TOKEN DE VALIDADE DE 20 DIAS - http://extraconversion.com/pt/tempo/dias/dias-para-milissegundos.html
-    private static final long EXPIRATION_TIME = 1728000000;   //não pode ser alterado
+    private static final long EXPIRATION_TIME =1728000000 ;   //não pode ser alterado - 1728000000
 
     //CHAVE DE SENHA PARA JUNTAR COM O JWT - senha de API externa por exemplo
     private static final String SECRET = "SS/dasda/dafsdfsfsd";
@@ -52,11 +56,13 @@ public class JWTTokenAutenticacaoService {
     }
 
     //RETORNA O USUÁRIO VALIDADO COM TOKEN OU CASO NÃO SEJA VALIDO RETORNA NULL
-    public Authentication getaAuthentication(HttpServletRequest request, HttpServletResponse response){
+    public Authentication getaAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = request.getHeader(HEADER_STRING);
 
-        if(token != null){
+        try{
+
+        if (token != null) {
 
             String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim(); //retira o Beareh do token
 
@@ -65,12 +71,12 @@ public class JWTTokenAutenticacaoService {
                     .parseClaimsJws(tokenLimpo)
                     .getBody().getSubject();//PEGAR O USUÁRIO ADM OU OUTROS USUARIOS
 
-            if(user != null){ //user diferente null ou seja encontrado
+            if (user != null) { //user diferente null ou seja encontrado
 
                 Usuario usuario = ApplicationContextLoad.getApplicationContext().getBean(UsuarioRepository.class).findUserByLogin(user); //carrega no banco para obter credenciais
 
-                if (usuario != null){
-                    return  new UsernamePasswordAuthenticationToken(
+                if (usuario != null) {
+                    return new UsernamePasswordAuthenticationToken(
                             usuario.getLogin(),
                             usuario.getSenha(),
                             usuario.getAuthorities());
@@ -78,8 +84,13 @@ public class JWTTokenAutenticacaoService {
                 }
             }
         }
-
-        liberacaoCors(response);
+     }catch(SignatureException e) {
+            response.getWriter().write("Token está inválido");
+        }catch (ExpiredJwtException e){
+            response.getWriter().write("Token JWT expirado, efetue o login novamente.");
+        }finally {
+            liberacaoCors(response);
+        }
         return null;
     }
 
@@ -98,6 +109,5 @@ public class JWTTokenAutenticacaoService {
             response.addHeader("Access-Control-Allow-Methods", "*");
         }
     }
-
 
 }
