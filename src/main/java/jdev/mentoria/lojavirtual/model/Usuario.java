@@ -20,7 +20,7 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)//login único para cada usuário
     private String login;
     @Column(nullable = false)
     private String senha;
@@ -33,6 +33,10 @@ public class Usuario implements UserDetails {
     @ManyToOne(targetEntity =  Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
+
+    @ManyToOne(targetEntity =  Pessoa.class)
+    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Pessoa empresa;
 
     @OneToMany(fetch = FetchType.EAGER)//FetchType.LAZY ->Carrega do Banco de dados apenas qd for necessário
     @JoinTable(name = "usuarios_acesso", uniqueConstraints =
@@ -125,5 +129,13 @@ public class Usuario implements UserDetails {
 
     public void setAcessos(List<Acesso> acessos) {
         this.acessos = acessos;
+    }
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
     }
 }

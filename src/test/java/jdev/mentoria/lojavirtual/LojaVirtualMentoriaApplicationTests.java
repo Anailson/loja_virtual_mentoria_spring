@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
+import java.util.Calendar;
 import java.util.List;
 
 //@Profile("test") - caso fosse realizar teste com o banco especificos de testes no properties
@@ -22,11 +23,13 @@ public class LojaVirtualMentoriaApplicationTests extends TestCase {
 	private AcessoRepository acessoRepository;
 
 	@Test
-	public void testCadastraAcesso() {
+	public void testCadastraAcesso() throws ExceptionMentoriaJava {
+
+		String descAcesso = "ROLE_ADM" + Calendar.getInstance().getTimeInMillis();
 
 		Acesso acesso = new Acesso();
 
-		acesso.setDescricao("ROLE_ADMIN");
+		acesso.setDescricao(descAcesso);
 
 		assertEquals(true, acesso.getId() == null);
 
@@ -36,7 +39,8 @@ public class LojaVirtualMentoriaApplicationTests extends TestCase {
 		assertEquals(true, acesso.getId() > 0);
 
 		/*Validar dados salvos de forma correta*/
-		assertEquals("ROLE_ADMIN", acesso.getDescricao());
+//		assertEquals("ROLE_ADMIN", acesso.getDescricao()); /  acesso.setDescricao("ROLE_ADM" + Calendar.getInstance().getTimeInMillis());
+		assertEquals("ROLE_ADMIN", + Calendar.getInstance().getTimeInMillis());
 
 		/*Teste de carregamento*/
 

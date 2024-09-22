@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +49,9 @@ public class TestController {
         ObjectMapper objectMapper = new ObjectMapper();
 
         Acesso acesso = new Acesso();
-        acesso.setDescricao("ROLE_ADM");
+        //acesso.setDescricao("ROLE_ADM"); //   validar caso já tenho Acesso com a mesma descrição  -  acesso.setDescricao("ROLE_ADM" + Calendar.getInstance().getTimeInMillis());
+
+        acesso.setDescricao("ROLE_ADM" + Calendar.getInstance().getTimeInMillis());
 
         ResultActions retornoAPi = mockMvc
                 .perform(MockMvcRequestBuilders.post("/salvarAcesso")

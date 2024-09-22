@@ -9,3 +9,6 @@ INSERT INTO public.pessoa_fisica(
         VALUES ('1', '2024-05-05', 'anailson', '$2a$10$ibmr.eMhICL0QQNE9Ykp5e5Dk7vzSP5mKec0lNEVv8Oraw3.r.Gji', 1);
 
 Insert -> para realizar testes do token
+
+
+alter TABLE usuario add CONSTRAINT login_unique UNIQUE (login)
