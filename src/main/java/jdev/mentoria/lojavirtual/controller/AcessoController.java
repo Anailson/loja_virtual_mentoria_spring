@@ -1,6 +1,7 @@
 package jdev.mentoria.lojavirtual.controller;
 
 
+import jdev.mentoria.lojavirtual.ExceptionMentoriaJava;
 import jdev.mentoria.lojavirtual.model.Acesso;
 import jdev.mentoria.lojavirtual.repository.AcessoRepository;
 import jdev.mentoria.lojavirtual.service.AcessoService;
@@ -25,7 +26,16 @@ public class AcessoController {
 
     @ResponseBody  /*Retorno da API*/
     @PostMapping(value = "/salvarAcesso") /*Mapeando a URL para receber JSON*/
-    public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso){/*REceber o JSON e converte para objeto*/
+    public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava {/*REceber o JSON e converte para objeto*/
+
+
+        if(acesso.getId() == null){
+            List<Acesso>  acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+            //TRATAMENTO DE ACESSO - CASO JÁ ESTEJA CADASTRADO COM A MESMA DESCRIÇÃO
+            if(!acessos.isEmpty()){
+                throw new ExceptionMentoriaJava("Já existe acesso com a descrição " + acesso.getDescricao());//descrção nesse caso são exemplo: ADM, SECRETARIO ETC - ACESSO AO SISTEMA
+            }
+        }
 
         Acesso acessoSalvo = acessoService.save(acesso);
 
@@ -54,9 +64,13 @@ public class AcessoController {
     /*Carregando registros*/
     @ResponseBody  /*Retorno da API*/
     @GetMapping(value = "/obterAcesso/{id}") /*Mapeando a URL para receber JSON DELETE POR ID*/
-    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id){/*REceber o JSON e converte para objeto*/
+    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) throws ExceptionMentoriaJava {/*REceber o JSON e converte para objeto*/
 
-       Acesso acesso = acessoRepository.findById(id).get();
+        Acesso acesso = acessoRepository.findById(id).orElse(null);
+
+        if(acesso == null){
+            throw  new ExceptionMentoriaJava("Não encontrou acesso com o código: " + id);
+        }
         return new ResponseEntity<>(acesso, HttpStatus.OK);
     }
     /*busca por descrição*/
@@ -64,7 +78,7 @@ public class AcessoController {
     @GetMapping(value = "/buscarPorDesc/{desc}") /*Mapeando a URL para receber JSON DELETE POR ID*/
     public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc){/*REceber o JSON e converte para objeto*/
 
-        List<Acesso>  acesso = acessoRepository.buscarAcessoDesc(desc);
+        List<Acesso>  acesso = acessoRepository.buscarAcessoDesc(desc.toUpperCase());
         return new ResponseEntity<List<Acesso>>(acesso, HttpStatus.OK);
     }
 
