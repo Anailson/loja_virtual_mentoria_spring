@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "categoria_produto")
-@SequenceGenerator(name = "seq_categoria_produto)", sequenceName = "seq_categoria_produto", allocationSize = 1, initialValue = 1)//ordem de identificação no banco - 1, 2 , 3 ,4 .....etc
+@SequenceGenerator(name = "seq_categoria_produto", sequenceName = "seq_categoria_produto", allocationSize = 1, initialValue = 1)//ordem de identificação no banco - 1, 2 , 3 ,4 .....etc
 public class CategoriaProduto implements Serializable {
 
     private static final long serialVersionUID = 1L;

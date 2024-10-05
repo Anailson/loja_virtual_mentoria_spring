@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "acesso")
-@SequenceGenerator(name = "seq_acesso)", sequenceName = "seq_acesso", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_acesso", sequenceName = "seq_acesso", allocationSize = 1, initialValue = 1)
 @JsonIgnoreProperties(ignoreUnknown = true) // Adicionando a anotação para ignorar propriedades desconhecidas
 public class Acesso implements GrantedAuthority {
 

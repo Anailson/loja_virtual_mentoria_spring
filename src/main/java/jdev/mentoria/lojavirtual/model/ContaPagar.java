@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "conta_pagar")
-@SequenceGenerator(name = "seq_conta_pagar)", sequenceName = "seq_conta_pagar", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_conta_pagar", sequenceName = "seq_conta_pagar", allocationSize = 1, initialValue = 1)
 public class ContaPagar implements Serializable {
 
     private static final long serialVersionUID = 1L;

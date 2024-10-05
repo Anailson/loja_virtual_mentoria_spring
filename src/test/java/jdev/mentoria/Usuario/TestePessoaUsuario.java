@@ -1,18 +1,12 @@
 package jdev.mentoria.Usuario;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdev.mentoria.lojavirtual.LojaVirtualMentoriaApplication;
-import jdev.mentoria.lojavirtual.controller.AcessoController;
-import jdev.mentoria.lojavirtual.model.Acesso;
-import jdev.mentoria.lojavirtual.model.PessoaFisica;
-import jdev.mentoria.lojavirtual.model.PessoaJuridica;
-import jdev.mentoria.lojavirtual.repository.AcessoRepository;
-import jdev.mentoria.lojavirtual.repository.PessoaRepository;
-import jdev.mentoria.lojavirtual.service.PessoaUserService;
-import junit.framework.TestCase;
 
+import jdev.mentoria.lojavirtual.ExceptionMentoriaJava;
+import jdev.mentoria.lojavirtual.LojaVirtualMentoriaApplication;
+import jdev.mentoria.lojavirtual.controller.PessoaController;
+import jdev.mentoria.lojavirtual.model.PessoaJuridica;
+import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,36 +16,26 @@ import org.springframework.context.annotation.Profile;
 @SpringBootTest(classes = LojaVirtualMentoriaApplication.class)
 public class TestePessoaUsuario extends TestCase {
 
-    @Autowired
-    private PessoaUserService pessoaUserService;
 
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaController pessoaController;
 
     @Test
-    public void TestCadPessoaFisica(){
+    public void TestCadPessoaFisica() throws ExceptionMentoriaJava {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
+        pessoaJuridica.setCnpj("08012528000192");
+        pessoaJuridica.setNome("anailson");
+        pessoaJuridica.setEmail("anailson@gmail.com");
+        pessoaJuridica.setTelefone("6158664646");
+        pessoaJuridica.setInscEstadual("36566185003");
+        pessoaJuridica.setInscMunicipal("098776049846");
+        pessoaJuridica.setNomeFantasia("dev");
+        pessoaJuridica.setRazaoSocial("dev");
 
-        pessoaJuridica.setCnpj("116654616565456");
-        pessoaJuridica.setNome("Lia empresa");
-        pessoaJuridica.setEmail("lia@gmail.com");
-        pessoaJuridica.setTelefone("6155464646");
-        pessoaJuridica.setInscEstadual("24484646246");
-        pessoaJuridica.setInscMunicipal("64264646400");
-        pessoaJuridica.setNomeFantasia("ribeiro");
-        pessoaJuridica.setRazaoSocial("santos");
+        pessoaController.salvarPj(pessoaJuridica);
 
-        pessoaRepository.save(pessoaJuridica);
 
-      /*  PessoaFisica pessoaFisica = new PessoaFisica();
-
-        pessoaFisica.setCpf("002546254669");
-        pessoaFisica.setNome("Lia");
-        pessoaFisica.setEmail("lia@gmail.com");
-        pessoaFisica.setTelefone("6155464646");
-        pessoaFisica.setEmpresa(pessoaFisica);
-*/
 
     }
 
