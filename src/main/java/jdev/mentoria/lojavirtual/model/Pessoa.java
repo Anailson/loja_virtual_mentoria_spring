@@ -31,6 +31,7 @@ public abstract class Pessoa implements Serializable {
     //teste versionamento
     @Column
     private String tipoPessoa;
+
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY) //1 endereço para muitas pessoa
     private List<Endereco> enderecos = new ArrayList<Endereco>();
 
